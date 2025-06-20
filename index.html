@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Translation Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "monaco-editor": "https://esm.sh/monaco-editor@0.45.0",
+            "jszip": "https://esm.sh/jszip@3.10.1"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1 class="title">Universal Translation Generator</h1>
+            <div class="language-selector">
+                <select id="currentLanguage">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="section">
+                    <h3>Code Scanner</h3>
+                    <textarea id="codeInput" placeholder="Paste your code here to scan for translatable strings..."></textarea>
+                    <button id="scanCode">Scan for Strings</button>
+                </div>
+
+                <div class="section">
+                    <h3>Translation Types</h3>
+                    <div class="translation-types">
+                        <label><input type="checkbox" id="scanStrings" checked> String Literals</label>
+                        <label><input type="checkbox" id="scanVariables" checked> Variable Names</label>
+                        <label><input type="checkbox" id="scanFunctions" checked> Function Names</label>
+                        <label><input type="checkbox" id="scanComments" checked> Comments</label>
+                        <label><input type="checkbox" id="scanClasses" checked> Class Names</label>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Actions</h3>
+                    <button id="generateTranslations">Generate Translation Files</button>
+                    <button id="exportTranslations">Export All Translations</button>
+                    <button id="importTranslations">Import Translations</button>
+                    <input type="file" id="fileInput" accept=".json,.zip" style="display: none;">
+                </div>
+            </div>
+
+            <div class="main-panel">
+                <div class="tabs">
+                    <button class="tab active" data-tab="editor">Code Editor</button>
+                    <button class="tab" data-tab="translations">Translation Manager</button>
+                    <button class="tab" data-tab="preview">Live Preview</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="editor-tab" class="tab-panel active">
+                        <div class="editor-controls">
+                            <button id="toggleTranslatedView">Show Translated Code</button>
+                            <span class="view-mode">Original View</span>
+                        </div>
+                        <div id="codeEditor"></div>
+                    </div>
+
+                    <div id="translations-tab" class="tab-panel">
+                        <div class="translation-controls">
+                            <input type="text" id="searchTranslations" placeholder="Search translations...">
+                            <select id="filterType">
+                                <option value="all">All Types</option>
+                                <option value="strings">Strings</option>
+                                <option value="variables">Variables</option>
+                                <option value="functions">Functions</option>
+                                <option value="comments">Comments</option>
+                                <option value="classes">Classes</option>
+                            </select>
+                        </div>
+                        <div id="translationList"></div>
+                    </div>
+
+                    <div id="preview-tab" class="tab-panel">
+                        <div class="preview-controls">
+                            <button id="runTranslatedCode">Run Translated Code</button>
+                            <button id="runOriginalCode">Run Original Code</button>
+                        </div>
+                        <div id="previewOutput"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <span id="statusText">Ready</span>
+            <span id="translationStats">0 translations managed</span>
+        </div>
+    </div>
+
+    <script src="translation-engine.js"></script>
+    <script src="code-parser.js"></script>
+    <script src="ui-controller.js"></script>
+    <script src="app.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
